@@ -5,7 +5,7 @@ linear_model <- function(formula, data) {
   # get x and y matrix
   X <- data.matrix(model_matrix(data, formula))
   y_name <- formula[[2]]
-  y <- data.matrix(select(data, y_name))
+  y <- data.matrix(select(data, all_of(y_name)))
 
   # get n and p values
   n <- nrow(X)
@@ -54,6 +54,7 @@ linear_model <- function(formula, data) {
     results <- list()
     results$Coefficients <- beta_hat
     results$s.e <- se.beta
+    results$Cov_beta <- var_cov
     results$t_value <- t_stat
     results$p_value <- p_values
     results$sigma_hat <- sigma_hat
