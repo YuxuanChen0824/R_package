@@ -1,8 +1,6 @@
-# haven't test
-
 GLH <- function(model, T, c = rep(0,nrow(T))) {
   beta_hat <- model$Coefficients
-  df1 <- nrow(T)
+  df1 <- qr(T)$rank
   df2 <- model$sigma_hat[2]
   main <- T %*% beta_hat - c
 

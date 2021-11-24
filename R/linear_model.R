@@ -1,7 +1,7 @@
-library(dplyr)
-library(modelr)
-
 linear_model <- function(formula, data) {
+  library(dplyr)
+  library(modelr)
+
   # get x and y matrix
   X <- data.matrix(model_matrix(data, formula))
   y_name <- formula[[2]]
@@ -23,7 +23,9 @@ linear_model <- function(formula, data) {
     colnames(beta_hat) <- "Estimate"
 
     # s.e for betas
-    SSE <- sum((y-y_hat)^2)
+    residuals <- y - y_hat
+    colnames(residuals) <- "residuals"
+    SSE <- sum((residuals)^2)
     MSE <- SSE / (n - p)
     sigma_hat <- c("sigma_hat" = sqrt(MSE), "df" = n - p)
     var_cov <- MSE * solve(t(X) %*% X)
@@ -52,6 +54,7 @@ linear_model <- function(formula, data) {
 
     # fit in results
     results <- list()
+    results$formula <- formula
     results$Coefficients <- beta_hat
     results$s.e <- se.beta
     results$Cov_beta <- var_cov
@@ -61,6 +64,9 @@ linear_model <- function(formula, data) {
     results$R2 <- RSquare
     results$F_statistics <- Fdata
     results$fitted_values <- y_hat
+    results$residuals <- residuals
+    results$X <- X
+    results$Y <- y
 
     return(results)
   }

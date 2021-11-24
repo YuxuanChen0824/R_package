@@ -1,9 +1,8 @@
-library(tidyverse)
-
 predict_mock <- function(mod, newobs) {
+  library(modelr)
+
   beta_hat <- mod$Coefficients
-  col <- rownames(beta_hat)[-1]
-  newX <- newobs[,col] %>% cbind(1,.) %>% data.matrix()
+  newX <- data.matrix(model_matrix(newobs, mod$formula))
 
   predicts <- newX %*% beta_hat
 
