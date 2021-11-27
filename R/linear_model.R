@@ -1,3 +1,37 @@
+#'linear_model
+#'
+#'Used to fit linear models.
+#'
+#'@param formula a symbolic description of the model to be fitted
+#'@param data a data frame containing the variables in the model
+#'
+#'
+#'@return a list containing following components:
+#'@return \code{formula}: the symbolic description of the model
+#'@return \code{Coefficients}: the estimated coefficients for each predictor
+#'@return \code{s.e}: the standard error of coefficient estimates
+#'@return \code{Cov_beta}: the variance-covariance matrix of estimated coefficients
+#'@return \code{t_value}: the t statistics of each coefficient
+#'@return \code{p_value}: the p value of corresponding coefficients' t test
+#'@return \code{sigma_hat}: the square root of MSE
+#'@return \code{R2}: R square
+#'@return \code{F_statistics}: the F statistics for the full model
+#'@return \code{fitted_values}: the fitted mean values
+#'@return \code{residuals}: the residuals, observed values mins fitted
+#'@return \code{X}: the model matrix used
+#'@return \code{Y}: the response used
+#'
+#'@examples
+#'ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
+#'trt <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
+#'group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
+#'weight <- c(ctl, trt)
+#'data <- data.frame(cbind(weight, group))
+#'lm.D9 <- linear_model(weight ~ group, data)
+#'
+#'@export
+
+
 linear_model <- function(formula, data) {
   library(dplyr)
   library(modelr)
