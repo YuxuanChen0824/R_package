@@ -10,29 +10,22 @@ residuals <- function(mod) {
   internall.student <- as.vector(res/(mod$sigma_hat[[1]] * sqrt(1 - H_ii)))
 
   # external studentized
-  SSE <- (mod$sigma_hat[[1]])^2 * mod$sigma_hat[[2]]
-  ydata <- cbind(mod$Y, mod$fitted_values)
+  df <- mod$sigma_hat[[2]]
+  stand.res.sq <- internall.student ^ 2
   cppFunction('
-      vector<double>
-
+      NumericVector one_remove(NumericVector stand_res_sq, double df) {
+         return (df - 1)/(df - stand_res_sq);
+      }
   ')
+  external.student <- as.vector(internall.student * sqrt(one_remove(stand.res.sq,df)))
 
   residual_data <- data.frame("residuals" = res,
                           "standardized residuals" = stand.res,
-                          "internal studentize" = internall.student)
+                          "internal studentize" = internall.student,
+                          "external studentize" = external.student)
 
   return(residual_data)
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
