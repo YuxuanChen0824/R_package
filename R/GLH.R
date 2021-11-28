@@ -13,6 +13,7 @@
 #'GLH(mod.davis, diag(2), c(0,1))
 #'
 #'@export
+#'
 
 
 GLH <- function(model, T, c = rep(0,nrow(T))) {

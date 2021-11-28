@@ -30,6 +30,7 @@
 #'lm.D9 <- linear_model(weight ~ group, data)
 #'
 #'@export
+#'
 
 
 linear_model <- function(formula, data) {

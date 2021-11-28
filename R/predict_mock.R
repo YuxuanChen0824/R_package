@@ -18,6 +18,7 @@
 #'predict_mock(lm.D9, data.frame("group" = c(1,2,2,1)))
 #'
 #'@export
+#'
 
 predict_mock <- function(mod, newobs) {
   library(modelr)

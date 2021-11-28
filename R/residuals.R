@@ -11,6 +11,7 @@
 #'residuals(mod.davis)
 #'
 #'@export
+#'
 
 residuals <- function(mod) {
   library(Rcpp)
