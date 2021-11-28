@@ -12,8 +12,6 @@
 #'
 #'@export
 
-
-
 residuals <- function(mod) {
   library(Rcpp)
   res <- as.vector(mod$residuals)

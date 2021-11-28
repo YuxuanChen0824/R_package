@@ -39,8 +39,8 @@ linear_model <- function(formula, data) {
   # get x and y matrix
   X <- data.matrix(model_matrix(data, formula))
   ystring <- toString(formula[[2]])
-  x_names <- colnames(X)[-1]
-  y <- data[,c(x_names,ystring)] %>% na.omit() %>% select(all_of(ystring)) %>% data.matrix()
+  val_names <- all.vars(formula)
+  y <- data[,val_names] %>% na.omit() %>% select(all_of(ystring)) %>% data.matrix()
 
   # get n and p values
   n <- nrow(X)
@@ -102,6 +102,10 @@ linear_model <- function(formula, data) {
     results$residuals <- residuals
     results$X <- X
     results$Y <- y
+    invisible(results)
+
+
+    print(results[1:9])
 
     return(results)
   }

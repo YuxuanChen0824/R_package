@@ -1,0 +1,58 @@
+---
+title: "tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(package.v1)
+```
+
+# Introduction
+
+This package focus on linear regression calculation. With it, you can do model fitting, prediction, general linear hypothesis test, and residual calculations. There are four main functions in this package, which are `linear_model()`, `predict_mock()`, `GLH()`, and `residuals()`.
+
+Here, we use the built-in toy data set, `Davis`, to demonstrate the usages of each function.
+
+# Toy Dataset
+
+Load in data set `Davis`.
+
+```{r}
+data <- Davis
+head(data)
+```
+
+# Fit model
+
+Say we are interested in study students' weight adjusted for sex, height, repwt. Theoretically, our model is: $Weight = \beta_0 + \beta_1sex + \beta_2height + \beta_3repwt + \epsilon$ with $\epsilon \sim N(0,\sigma^2)$
+
+First, we use self-defined model 'linear_model'
+
+```{r}
+mod <- linear_model(weight ~ repwt + height + sex, data = data)
+```
+
+Now, we compare it with original `lm` function
+
+```{r}
+mod2 <- lm(weight ~ repwt + height + sex, data = data)
+summary(mod2)
+```
+
+
+
+
+
+
+
