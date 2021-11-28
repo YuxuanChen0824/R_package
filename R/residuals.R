@@ -1,3 +1,19 @@
+#'residuals
+#'
+#'Calculate four types of residuals for a fitted linear regression. Use it with linear_model function.
+#'
+#'@param mod the fitted linear regression
+#'
+#'@return a table containing four types of residuals
+#'
+#'@examples
+#'mod.davis <- linear_model(weight ~ repwt, data=Davis)
+#'residuals(mod.davis)
+#'
+#'@export
+
+
+
 residuals <- function(mod) {
   library(Rcpp)
   res <- as.vector(mod$residuals)

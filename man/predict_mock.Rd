@@ -25,6 +25,6 @@ weight <- c(ctl, trt)
 data <- data.frame(cbind(weight, group))
 lm.D9 <- linear_model(weight ~ group, data)
 
-predict_mock(lm.D9, data.matrix("group" = c(1,3,3,4)))
+predict_mock(lm.D9, data.frame("group" = c(1,2,2,1)))
 
 }

@@ -38,8 +38,9 @@ linear_model <- function(formula, data) {
 
   # get x and y matrix
   X <- data.matrix(model_matrix(data, formula))
-  y_name <- formula[[2]]
-  y <- data.matrix(select(data, all_of(y_name)))
+  ystring <- toString(formula[[2]])
+  x_names <- colnames(X)[-1]
+  y <- data[,c(x_names,ystring)] %>% na.omit() %>% select(all_of(ystring)) %>% data.matrix()
 
   # get n and p values
   n <- nrow(X)
