@@ -51,6 +51,65 @@ mod2 <- lm(weight ~ repwt + height + sex, data = data)
 summary(mod2)
 ```
 
+# Prediction
+
+I manually generate 5 new observations.
+
+```{r}
+newobs <- data.frame("repwt" = c(50, 70, 70, 85, 63),
+                     "height" = c(165, 189, 178, 150, 180),
+                     "sex" = c('F', 'M', 'M', 'F', 'F'))
+```
+
+Again, I use self-defined function first
+
+```{r}
+predict_mock(mod, newobs)
+```
+
+The results given by R function:
+
+```{r}
+predict(mod2, newobs)
+```
+
+# General Linear Hypothesis test
+
+I will test following hypotheses
+
+$H_0: \beta_{repwt} + 2*\beta_{weight} = 0 \space and \space \beta_{sex} = 0$
+
+$H_1: not \space H_0$
+
+```{r}
+#Corresponding T matrix
+(T = matrix(c(0,0,1,0,2,0,0,1), nrow = 2))
+```
+
+Results provided by self-defined function
+
+```{r}
+GLH(mod, T)
+```
+
+Results from `linearHypothesis` function in package `car`.
+
+```{r}
+linearHypothesis(mod2, T)
+```
+
+# Residual Calculation
+
+```{r}
+
+```
+
+
+
+
+
+
+
 
 
 

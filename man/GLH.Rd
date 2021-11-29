@@ -20,7 +20,7 @@ The results of F test including the F statistics and p value
 Conduct general linear hypothesis test. Use this function with function \code{linear_model}
 }
 \examples{
-mod.davis <- linear_model(weight ~ repwt, data=Davis)
-GLH(mod.davis, diag(2), c(0,1))
+mod <- linear_model(Depression ~ Fatalism + R_E + Sex, Patients)
+GLH(mod, diag(4))
 
 }

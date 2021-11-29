@@ -16,7 +16,7 @@ a table containing four types of residuals
 Calculate four types of residuals for a fitted linear regression. Use it with linear_model function.
 }
 \examples{
-mod.davis <- linear_model(weight ~ repwt, data=Davis)
-residuals(mod.davis)
+mod <- linear_model(Depression ~ Fatalism + R_E + Sex, Patients)
+residuals(mod)
 
 }

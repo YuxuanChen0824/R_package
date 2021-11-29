@@ -7,8 +7,8 @@
 #'@return a table containing four types of residuals
 #'
 #'@examples
-#'mod.davis <- linear_model(weight ~ repwt, data=Davis)
-#'residuals(mod.davis)
+#'mod <- linear_model(Depression ~ Fatalism + R_E + Sex, Patients)
+#'residuals(mod)
 #'
 #'@export
 #'
