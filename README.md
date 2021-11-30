@@ -1,5 +1,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/YuxuanChen0824/R_package/workflows/R-CMD-check/badge.svg)](https://github.com/YuxuanChen0824/R_package/actions)
+
+[![codecov](https://codecov.io/gh/YuxuanChen0824/R_package/branch/main/graph/badge.svg?token=QTFT7GWAF8)](https://codecov.io/gh/YuxuanChen0824/R_package)
 <!-- badges: end -->
 
 # Package.v1
