@@ -19,13 +19,13 @@ library(package.v1)
 library(car)
 ```
 
-# Introduction
+## Introduction
 
 This package focus on linear regression calculation. With it, you can do model fitting, prediction, general linear hypothesis test, and residual calculations. There are four main functions in this package, which are `linear_model()`, `predict_mock()`, `GLH()`, and `residuals()`.
 
 Here, we use the built-in toy data set, `Davis`, from package `car` to demonstrate the usages of each function.
 
-# Toy Dataset
+## Toy Dataset
 
 Load in data set `Davis`.
 
@@ -34,7 +34,7 @@ data <- Davis
 head(data)
 ```
 
-# Fit model
+## Fit model
 
 Say we are interested in study students' weight adjusted for sex, height, repwt. Theoretically, our model is: $Weight = \beta_0 + \beta_1sex + \beta_2height + \beta_3repwt + \epsilon$ with $\epsilon \sim N(0,\sigma^2)$
 
@@ -51,7 +51,7 @@ mod2 <- lm(weight ~ repwt + height + sex, data = data)
 summary(mod2)
 ```
 
-# Prediction
+## Prediction
 
 I manually generate 5 new observations.
 
@@ -73,7 +73,7 @@ The results given by R function:
 predict(mod2, newobs)
 ```
 
-# General Linear Hypothesis test
+## General Linear Hypothesis test
 
 I will test following hypotheses
 
@@ -98,7 +98,7 @@ Results from `linearHypothesis` function in package `car`.
 linearHypothesis(mod2, T)
 ```
 
-# Residual Calculation
+## Residual Calculation
 
 ```{r}
 
