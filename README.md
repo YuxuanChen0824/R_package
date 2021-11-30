@@ -1,3 +1,7 @@
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/YuxuanChen0824/R_package/workflows/R-CMD-check/badge.svg)](https://github.com/YuxuanChen0824/R_package/actions)
+<!-- badges: end -->
+
 # Package.v1
 
 ## Overview
