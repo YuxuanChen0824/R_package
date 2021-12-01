@@ -20,7 +20,7 @@ library(car)
 library(bench)
 ```
 
-## Introducti
+## Introduction
 
 This package focus on linear regression calculation. With it, you can do model fitting, prediction, general linear hypothesis test, and residual calculations. There are four main functions in this package, which are `linear_model()`, `predict_mock()`, `GLH()`, and `residuals()`.
 
