@@ -34,14 +34,11 @@
 
 
 linear_model <- function(formula, data) {
-  library(dplyr)
-  library(modelr)
-
   # get x and y matrix
-  X <- data.matrix(model_matrix(data, formula))
+  X <- data.matrix(modelr::model_matrix(data, formula))
   ystring <- toString(formula[[2]])
   val_names <- all.vars(formula)
-  y <- data[,val_names] %>% na.omit() %>% select(all_of(ystring)) %>% data.matrix()
+  y <- data.matrix(dplyr::select(na.omit(data[,val_names]),all_of(ystring)))
 
   # get n and p values
   n <- nrow(X)
