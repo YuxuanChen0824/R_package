@@ -10,6 +10,11 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
+Imports:
+    dplyr,
+    modelr,
+    car,
+    Rcpp,
 Suggests: 
     knitr,
     rmarkdown,
