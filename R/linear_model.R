@@ -49,6 +49,7 @@ linear_model <- function(formula, data) {
   fullrank_check <- tryCatch(solve(t(X)%*%X), error = function(e) e)
   if(any(class(fullrank_check) == "error")) {
     print("Please check your predictors")
+    return()
   } else {
     # fitted values
     beta_hat <- solve(t(X) %*% X) %*% t(X) %*% y
