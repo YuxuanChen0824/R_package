@@ -31,7 +31,8 @@
 #'
 #'@export
 #'
-
+install.packages("dplyr", repos = "http://cran.us.r-project.org")
+install.packages("tidyselect", repos = "http://cran.us.r-project.org")
 
 linear_model <- function(formula, data) {
   # get x and y matrix
@@ -47,7 +48,7 @@ linear_model <- function(formula, data) {
   # check singularity
   fullrank_check <- tryCatch(solve(t(X)%*%X), error = function(e) e)
   if(any(class(fullrank_check) == "error")) {
-    print("X'X is not invertable")
+    print("Please check your predictors")
   } else {
     # fitted values
     beta_hat <- solve(t(X) %*% X) %*% t(X) %*% y
