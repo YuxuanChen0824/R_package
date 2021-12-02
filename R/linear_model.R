@@ -107,7 +107,7 @@ linear_model <- function(formula, data) {
     print(results[1:9])
 
     return(results)
-  } else print("Please check your predictors")
+  } else stop("Please check your predictors")
 }
 
 
