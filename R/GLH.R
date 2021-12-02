@@ -23,7 +23,7 @@ GLH <- function(model, T, c = rep(0,nrow(T))) {
   main <- T %*% beta_hat - c
 
   Fstatistics <- t(main) %*% solve(T %*% model$Cov_beta %*% t(T)) %*% main / df1
-  pvalue <- pf(Fstatistics, df1, df2, lower.tail = FALSE)
+  pvalue <- stats::pf(Fstatistics, df1, df2, lower.tail = FALSE)
 
   return(c('F' = Fstatistics, 'Pr(>F)' = pvalue))
 }

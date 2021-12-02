@@ -17,6 +17,7 @@ Imports:
     Rcpp,
     bench,
     stats,
+    tidyselect,
 Suggests: 
     knitr,
     rmarkdown,

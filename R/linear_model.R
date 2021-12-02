@@ -38,7 +38,7 @@ linear_model <- function(formula, data) {
   X <- data.matrix(modelr::model_matrix(data, formula))
   ystring <- toString(formula[[2]])
   val_names <- all.vars(formula)
-  y <- data.matrix(dplyr::select(na.omit(data[,val_names]),all_of(ystring)))
+  y <- data.matrix(dplyr::select(stats::na.omit(data[,val_names]),tidyselect::all_of(ystring)))
 
   # get n and p values
   n <- nrow(X)
@@ -69,7 +69,7 @@ linear_model <- function(formula, data) {
     colnames(t_stat) <- "t value"
 
     # p value
-    p_values <- unlist(sapply(t_stat, function(x) 2*(1-pt(abs(x),n-p))))
+    p_values <- unlist(sapply(t_stat, function(x) 2*(1-stats::pt(abs(x),n-p))))
 
     # multiple R square and adjusted R square
     SSR <- sum((y_hat - mean(y))^2)
@@ -82,7 +82,7 @@ linear_model <- function(formula, data) {
     F_stat <- (SSR/(p - 1))/MSE
     df1 <- p - 1
     df2 <- n - p
-    P_f <- 1 - pf(F_stat, df1, df2)
+    P_f <- 1 - stats::pf(F_stat, df1, df2)
     Fdata <- c("F statistics" = F_stat, "df1" = df1, "df2" = df2, "pvale" = P_f)
 
     # fit in results
