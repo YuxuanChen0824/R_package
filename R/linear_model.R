@@ -31,6 +31,7 @@
 #'
 #'@export
 #'
+
 install.packages("dplyr", repos = "http://cran.us.r-project.org")
 install.packages("tidyselect", repos = "http://cran.us.r-project.org")
 
@@ -47,10 +48,8 @@ linear_model <- function(formula, data) {
 
   # check singularity
   fullrank_check <- tryCatch(solve(t(X)%*%X), error = function(e) e)
-  if(any(class(fullrank_check) == "error")) {
-    print("Please check your predictors")
-    return()
-  } else {
+  if(!any(class(fullrank_check) == "error")) {
+
     # fitted values
     beta_hat <- solve(t(X) %*% X) %*% t(X) %*% y
     hat_matrix <- X %*% solve(t(X) %*% X) %*% t(X)
@@ -108,6 +107,8 @@ linear_model <- function(formula, data) {
     print(results[1:9])
 
     return(results)
+  } else {
+    print("Please check your predictors")
   }
 
 }
