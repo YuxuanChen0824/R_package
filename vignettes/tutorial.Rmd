@@ -37,7 +37,7 @@ head(data)
 
 ## Fit model
 
-Say we are interested in study students' weight adjusted for sex, height, repwt. Theoretically, our model is: $Weight = \beta_0 + \beta_1sex + \beta_2height + \beta_3repwt + \epsilon$ with $\epsilon \sim N(0,\sigma^2)$
+Say we are interested in studying students' weight adjusted for sex, height, repwt. Theoretically, our model is: $Weight = \beta_0 + \beta_1sex + \beta_2height + \beta_3repwt + \epsilon$ with $\epsilon \sim N(0,\sigma^2)$
 
 First, we use self-defined model 'linear_model'
 
@@ -51,6 +51,42 @@ Now, we compare it with original `lm` function
 mod2 <- lm(weight ~ repwt + height + sex, data = data)
 summary(mod2)
 ```
+
+### Correctness
+
+Now compare two models using `all.equal` function.
+
+```{r}
+# coefficients
+all.equal(as.vector(mod$Coefficients), as.vector(mod2$coefficients))
+
+# standard error
+all.equal(as.vector(mod$s.e), as.vector(summary(mod2)$coefficients[,2]))
+
+# t value
+all.equal(as.vector(mod$t_value), as.vector(summary(mod2)$coefficients[,3]))
+
+# p value
+all.equal(as.vector(mod$p_value), as.vector(summary(mod2)$coefficients[,4]))
+
+# r square
+all.equal(mod$R2[[1]], summary(mod2)$r.squared)
+
+# adjusted r square
+all.equal(mod$R2[[2]], summary(mod2)$adj.r.squared)
+```
+
+### Efficiency
+
+```{r, results = FALSE}
+compare =  bench::mark(as.vector(linear_model(weight ~ repwt + height + sex, data = data)$Coefficients), as.vector(lm(weight ~ repwt + height + sex, data = data)$coefficients))
+
+```
+
+```{r}
+print(compare)
+```
+
 
 ## Prediction
 
@@ -73,6 +109,19 @@ The results given by R function:
 ```{r}
 predict(mod2, newobs)
 ```
+
+### Correctness
+
+```{r}
+all.equal(as.vector(predict_mock(mod, newobs)), as.vector(predict(mod2, newobs)))
+```
+
+### Efficiency
+
+```{r}
+bench::mark(as.vector(predict_mock(mod, newobs)), as.vector(predict(mod2, newobs)))
+```
+
 
 ## General Linear Hypothesis test
 
@@ -99,17 +148,63 @@ Results from `linearHypothesis` function in package `car`.
 linearHypothesis(mod2, T)
 ```
 
-## Residual Calculation
+### Correctness
 
 ```{r}
+all.equal(GLH(mod, T)[[1]], linearHypothesis(mod2, T)[2,5])
+```
 
+### Efficiency
+
+```{r}
+bench::mark(GLH(mod, T)[[1]], linearHypothesis(mod2, T)[2,5])
 ```
 
 
 
+## Residual Calculation
+
+The results of implemented function are presented first.
+
+```{r}
+res <- residuals(mod)
+head(res)
+```
+
+### Correctness
+
+```{r}
+# unstandardized residuals
+all.equal(as.vector(res$residuals), as.vector(mod2$residuals))
+
+# standardized residuals
+all.equal(as.vector(res$standardized.residuals), as.vector(mod2$residuals/summary(mod2)$sigma))
+
+# internal
+all.equal(as.vector(res$internal.studentize), as.vector(rstandard(mod2)))
+
+# external
+all.equal(as.vector(res$external.studentize), as.vector(rstudent(mod2)))
+```
+
+### Efficiency
 
 
+```{r}
+origin <- function(mod) {
+  results <- data.frame("residuals" = as.vector(mod$residuals),
+                        "standardized.residuals" = as.vector(mod$residuals/summary(mod)$sigma),
+                        "internal.studentize" = as.vector(rstandard(mod)),
+                        "external.studentize" = as.vector(rstudent(mod)))
+  
+  return(results)
+}
+```
 
+```{r}
+bench::mark(residuals(mod), origin(mod2))
+
+```
 
 
 

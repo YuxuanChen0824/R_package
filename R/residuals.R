@@ -26,12 +26,8 @@ residuals <- function(mod) {
   # external studentized
   df <- mod$sigma_hat[[2]]
   stand.res.sq <- internall.student ^ 2
-  Rcpp::cppFunction('
-      NumericVector one_remove(NumericVector stand_res_sq, double df) {
-         return (df - 1)/(df - stand_res_sq);
-      }
-  ')
-  external.student <- as.vector(internall.student * sqrt(one_remove(stand.res.sq,df)))
+  one_remove <- (df - 1)/(df - stand.res.sq)
+  external.student <- as.vector(internall.student * sqrt(one_remove))
 
   residual_data <- data.frame("residuals" = res,
                           "standardized residuals" = stand.res,
