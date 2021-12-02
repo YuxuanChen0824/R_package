@@ -32,8 +32,8 @@
 #'@export
 #'
 
-install.packages("dplyr", repos = "http://cran.us.r-project.org")
-install.packages("tidyselect", repos = "http://cran.us.r-project.org")
+#install.packages("dplyr", repos = "http://cran.us.r-project.org")
+#install.packages("tidyselect",repos = "http://cran.us.r-project.org")
 
 linear_model <- function(formula, data) {
   # get x and y matrix

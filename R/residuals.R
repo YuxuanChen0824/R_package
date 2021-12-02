@@ -11,7 +11,6 @@
 #'residuals(mod)
 #'
 #'@export
-#'
 
 residuals <- function(mod) {
   res <- as.vector(mod$residuals)
