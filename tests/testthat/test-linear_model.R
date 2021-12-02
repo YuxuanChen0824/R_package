@@ -20,6 +20,13 @@ test_that("test four functions", {
   # test adjusted r square
   expect_equal(mod$R2[[2]], summary(mod2)$adj.r.squared)
 
+  ### test special case in which x is singular
+  data_mock <- data.frame("pred1" = c(1,1),
+                          "pred2" = c(1,1),
+                          "response" = c(3,4))
+
+  expect_equal(linear_model(response ~ pred1 + pred2, data_mock), "Please check your predictors")
+
 
   ## test predict function
   # generate new observation
