@@ -18,11 +18,12 @@ knitr::opts_chunk$set(
 library(package.v1)
 library(car)
 library(bench)
+library(microbenchmark)
 ```
 
 ## Introduction
 
-This package focuses on linear regression calculation. With it, you can do model fitting, prediction, general linear hypothesis test, and residual calculations. There are four main functions in this package, which are `linear_model()`, `predict_mock()`, `GLH()`, and `residuals()`.
+This package focuses on linear regression calculation. With it, you can do model fitting, prediction, general linear hypothesis test, and residual calculations. There are six main functions in this package, which are `linear_model()`, `predict_mock()`, `GLH()`, `residuals()`, `dffit()`, and `Cooks()`.
 
 Here, we use the built-in toy data set, `Davis`, from package `car` to demonstrate the usages of each function.
 
@@ -80,11 +81,12 @@ all.equal(mod$R2[[2]], summary(mod2)$adj.r.squared)
 
 ```{r, results = FALSE}
 compare =  bench::mark(as.vector(linear_model(weight ~ repwt + height + sex, data = data)$Coefficients), as.vector(lm(weight ~ repwt + height + sex, data = data)$coefficients))
-
+res <- microbenchmark::microbenchmark(as.vector(linear_model(weight ~ repwt + height + sex, data = data)$Coefficients), as.vector(lm(weight ~ repwt + height + sex, data = data)$coefficients))
 ```
 
-```{r}
+```{r, fig.asp = 0.8, fig.width = 9}
 print(compare)
+plot(res)
 ```
 
 
@@ -118,8 +120,9 @@ all.equal(as.vector(predict_mock(mod, newobs)), as.vector(predict(mod2, newobs))
 
 ### Efficiency
 
-```{r}
+```{r, fig.asp = 0.8, fig.width = 9}
 bench::mark(as.vector(predict_mock(mod, newobs)), as.vector(predict(mod2, newobs)))
+plot(microbenchmark::microbenchmark(as.vector(predict_mock(mod, newobs)), as.vector(predict(mod2, newobs))))
 ```
 
 
@@ -156,8 +159,9 @@ all.equal(GLH(mod, T)[[1]], linearHypothesis(mod2, T)[2,5])
 
 ### Efficiency
 
-```{r}
+```{r, fig.asp = 0.8, fig.width = 9}
 bench::mark(GLH(mod, T)[[1]], linearHypothesis(mod2, T)[2,5])
+plot(microbenchmark::microbenchmark(GLH(mod, T)[[1]], linearHypothesis(mod2, T)[2,5]))
 ```
 
 
@@ -200,9 +204,9 @@ origin <- function(mod) {
 }
 ```
 
-```{r}
+```{r, fig.asp = 0.8, fig.width = 9}
 bench::mark(residuals(mod), origin(mod2))
-
+plot(microbenchmark::microbenchmark(residuals(mod), origin(mod2)))
 ```
 
 ## DFFIT Calculation
@@ -210,13 +214,13 @@ bench::mark(residuals(mod), origin(mod2))
 The implemented function's results are presented first
 
 ```{r}
-dffit(mod)
+dffit(mod)[1:10]
 ```
 
-Below are results of function `dffits` in `stats` packag.
+Below are results of function `dffits` in `stats` package.
 
 ```{r}
-stats::dffits(mod2)
+stats::dffits(mod2)[1:10]
 ```
 
 ### Correctness
@@ -227,8 +231,9 @@ all.equal(as.vector(dffit(mod)), as.vector(dffits(mod2)))
 
 ### Efficiency
 
-```{r}
+```{r, fig.asp = 0.8, fig.width = 9}
 bench::mark(as.vector(dffit(mod)), as.vector(dffits(mod2)))
+plot(microbenchmark::microbenchmark(as.vector(dffit(mod)), as.vector(dffits(mod2))))
 ```
 
 
@@ -237,12 +242,12 @@ bench::mark(as.vector(dffit(mod)), as.vector(dffits(mod2)))
 Still self-defined function are present first
 
 ```{r}
-Cooks(mod)
+Cooks(mod)[1:10]
 
 ```
 
 ```{r}
-stats::cooks.distance(mod2)
+stats::cooks.distance(mod2)[1:10]
 ```
 
 ### Correctness
@@ -253,8 +258,9 @@ all.equal(as.vector(Cooks(mod)), as.vector(cooks.distance(mod2)))
 
 ### Efficiency
 
-```{r}
+```{r, fig.asp = 0.8, fig.width = 9}
 bench::mark(as.vector(Cooks(mod)), as.vector(cooks.distance(mod2)))
+plot(microbenchmark::microbenchmark(as.vector(Cooks(mod)), as.vector(cooks.distance(mod2))))
 ```
 
 

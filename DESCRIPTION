@@ -14,10 +14,10 @@ Imports:
     dplyr,
     modelr,
     car,
-    Rcpp,
     bench,
     stats,
     tidyselect,
+    microbenchmark,
 Suggests: 
     knitr,
     rmarkdown,
