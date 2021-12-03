@@ -21,12 +21,13 @@
 #'
 
 predict_mock <- function(mod, newobs) {
-
+  # prepare newX
   yname <- toString(mod$formula[[2]])
   newobs <- cbind(newobs, y = 0)
   colnames(newobs)[ncol(newobs)] <- yname
   newX <- data.matrix(modelr::model_matrix(newobs, mod$formula))
 
+  # prepare betas
   beta_hat1 <- mod$Coefficients
   beta_hat2 <- beta_hat1[rownames(beta_hat1) %in% colnames(newX)]
 

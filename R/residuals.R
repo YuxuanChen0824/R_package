@@ -1,6 +1,6 @@
 #'residuals
 #'
-#'Calculate four types of residuals for a fitted linear regression. Use it with linear_model function.
+#'Calculate four types of residuals for a fitted linear regression. Use it with `linear_model` function.
 #'
 #'@param mod the fitted linear regression
 #'
@@ -14,6 +14,8 @@
 
 residuals <- function(mod) {
   res <- as.vector(mod$residuals)
+
+  # standardized residuals
   stand.res <- as.vector(res/mod$sigma_hat[[1]])
 
   # internal studentized

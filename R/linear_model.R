@@ -32,9 +32,6 @@
 #'@export
 #'
 
-#install.packages("dplyr", repos = "http://cran.us.r-project.org")
-#install.packages("tidyselect",repos = "http://cran.us.r-project.org")
-
 linear_model <- function(formula, data) {
   # get x and y matrix
   X <- data.matrix(modelr::model_matrix(data, formula))
@@ -86,7 +83,7 @@ linear_model <- function(formula, data) {
     P_f <- 1 - stats::pf(F_stat, df1, df2)
     Fdata <- c("F statistics" = F_stat, "df1" = df1, "df2" = df2, "pvale" = P_f)
 
-    # fit in results
+    # fill in results
     results <- list()
     results$formula <- formula
     results$Coefficients <- beta_hat
