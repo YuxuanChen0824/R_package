@@ -55,4 +55,9 @@ test_that("test four functions", {
   # external studentized
   expect_equal(as.vector(res$external.studentize), as.vector(rstudent(mod2)))
 
+  ## test dffit function
+  expect_equal(as.vector(dffit(mod)), as.vector(dffits(mod2)))
+
+  ## test cooks function
+  expect_equal(as.vector(Cooks(mod)), as.vector(cooks.distance(mod2)))
   })

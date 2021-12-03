@@ -161,7 +161,6 @@ bench::mark(GLH(mod, T)[[1]], linearHypothesis(mod2, T)[2,5])
 ```
 
 
-
 ## Residual Calculation
 
 The results of implemented function are presented first.
@@ -206,9 +205,56 @@ bench::mark(residuals(mod), origin(mod2))
 
 ```
 
+## DFFIT Calculation
+
+The implemented function's results are presented first
+
+```{r}
+dffit(mod)
+```
+
+Below are results of function `dffits` in `stats` packag.
+
+```{r}
+stats::dffits(mod2)
+```
+
+### Correctness
+
+```{r}
+all.equal(as.vector(dffit(mod)), as.vector(dffits(mod2)))
+```
+
+### Efficiency
+
+```{r}
+bench::mark(as.vector(dffit(mod)), as.vector(dffits(mod2)))
+```
 
 
+## Cook's distance
 
+Still self-defined function are present first
 
+```{r}
+Cooks(mod)
+
+```
+
+```{r}
+stats::cooks.distance(mod2)
+```
+
+### Correctness
+
+```{r}
+all.equal(as.vector(Cooks(mod)), as.vector(cooks.distance(mod2)))
+```
+
+### Efficiency
+
+```{r}
+bench::mark(as.vector(Cooks(mod)), as.vector(cooks.distance(mod2)))
+```
 
 
