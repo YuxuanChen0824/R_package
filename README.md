@@ -49,5 +49,5 @@ Cooks(mod)
 ```
 ## Getting Help
 
-For detailed usage of each functions and corresponding toy examples, please use `?linear_mod` `?predict_mock` `?GLH` and `?residuals` to access help pages.
+For detailed usage of each functions and corresponding toy examples, please use `?linear_mod` `?predict_mock` `?GLH` `?residuals` `?dffit` and `?Cooks` to access help pages.
 
