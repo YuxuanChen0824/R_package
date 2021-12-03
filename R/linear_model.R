@@ -29,6 +29,9 @@
 #'data <- data.frame(cbind(weight, group))
 #'lm.D9 <- linear_model(weight ~ group, data)
 #'
+#'@import dplyr
+#'@import tidyselect
+#'
 #'@export
 #'
 

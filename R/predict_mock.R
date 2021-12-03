@@ -17,6 +17,7 @@
 #'
 #'predict_mock(lm.D9, data.frame("group" = c(1,2,2,1)))
 #'
+#'@import modelr
 #'@export
 #'
 

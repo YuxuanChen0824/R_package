@@ -13,7 +13,7 @@ residuals(mod)
 a table containing four types of residuals
 }
 \description{
-Calculate four types of residuals for a fitted linear regression. Use it with linear_model function.
+Calculate four types of residuals for a fitted linear regression. Use it with `linear_model` function.
 }
 \examples{
 mod <- linear_model(Depression ~ Fatalism + R_E + Sex, Patients)
